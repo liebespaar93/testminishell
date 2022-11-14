@@ -6,7 +6,7 @@
 /*   By: kyoulee <kyoulee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 07:22:07 by kyoulee           #+#    #+#             */
-/*   Updated: 2022/11/14 09:48:51 by kyoulee          ###   ########.fr       */
+/*   Updated: 2022/11/14 15:41:27 by kyoulee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,17 @@ char	*ft_redirect_eof(char *str, int *flag)
 	return (str);
 }
 
-char	*ft_semi_eof(char *start, char *temp)
+char	*ft_semi_eof(char *start, char *end)
 {
-	ft_cmd(ft_strncpy(start, temp - start));
-	return (temp + 1);
+	char	*temp;
+
+	ft_cmd(ft_strncpy(start, end - start));
+	temp = end + 1;
+	while (*temp && ft_strchr(WHITE_SPACE, *temp))
+		temp++;
+	if (!*temp)
+		return (NULL);
+	return (end + 1);
 }
 
 int	ft_running(char *history_str)
@@ -105,7 +112,7 @@ int	ft_running(char *history_str)
 	flag = 1;
 	start = history_str;
 	temp = history_str;
-	while (temp)
+	while (start)
 	{
 		if (!*temp)
 			return (ft_cmd(ft_strncpy(start, temp - start)));

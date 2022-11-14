@@ -6,7 +6,7 @@
 /*   By: kyoulee <kyoulee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 09:56:33 by kyoulee           #+#    #+#             */
-/*   Updated: 2022/11/14 09:56:34 by kyoulee          ###   ########.fr       */
+/*   Updated: 2022/11/14 13:31:49 by kyoulee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-void	ft_execute(char *infile, char *outfile, char **argv, int last_cmd)
+void	ft_execute2(char *infile, char *outfile, char **argv, int last_cmd)
 {
 	extern char **environ;
 

@@ -5,7 +5,7 @@
 
 
 
-int main(void)
+int main(int ar, char **av, char **envp)
 {
 	pid_t	pid;
 	int		fd[2];
@@ -20,6 +20,7 @@ int main(void)
 	if (pid)
 	{
 		putenv("a=4");
+		execve("/usr/bin/head", (char *[5]){"/usr/bin/head", "-n","100", "test.c", NULL}, envp);
 	}
 	else
 		wait(NULL);

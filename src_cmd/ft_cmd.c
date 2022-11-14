@@ -6,7 +6,7 @@
 /*   By: kyoulee <kyoulee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 09:59:50 by kyoulee           #+#    #+#             */
-/*   Updated: 2022/11/14 11:58:38 by kyoulee          ###   ########.fr       */
+/*   Updated: 2022/11/14 15:51:39 by kyoulee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,19 @@
 
 #include <stdio.h>
 // test
-void	ft_argv_printf(t_cmd *cmd)
-{
-	int	i;
+// void	ft_argv_printf(t_cmd *cmd)
+// {
+// 	int	i;
 
-	i = 0;
-	if (!cmd->argv)
-		return ;
-	while (cmd->argv[i])
-	{
-		printf("cmd->argv[%d] : %s\n", i, cmd->argv[i]);
-		i++;
-	}
-}
+// 	i = 0;
+// 	if (!cmd->argv)
+// 		return ;
+// 	while (cmd->argv[i])
+// 	{
+// 		printf("cmd->argv[%d] : %s\n", i, cmd->argv[i]);
+// 		i++;
+// 	}
+// }
 // test end
 
 t_cmd	ft_cmd_init(void)
@@ -49,7 +49,7 @@ char	*ft_cmd_pipe(t_cmd *cmd, char *temp, int *flag)
 {
 	*flag = 1;
 	ft_exe(cmd, *flag);
-	ft_argv_printf(cmd);
+	// ft_argv_printf(cmd);
 	ft_argv_free(cmd);
 	*cmd = ft_cmd_init();
 	return (temp + 1);
@@ -95,7 +95,7 @@ int	ft_cmd(char *str)
 			temp = ft_cmd_word(&cmd, temp);
 	}
 	ft_exe(&cmd, flag);
-	ft_argv_printf(&cmd);
+	// ft_argv_printf(&cmd);
 	ft_argv_free(&cmd);
 	free(str);
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: kyoulee <kyoulee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 17:55:35 by kyoulee           #+#    #+#             */
-/*   Updated: 2022/11/14 09:43:35 by kyoulee          ###   ########.fr       */
+/*   Updated: 2022/11/14 15:52:05 by kyoulee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,6 @@ void	ft_tty_loop(void)
 			ft_running(history_str);
 			add_history(history_str);
 		}
-		printf("history : %s\n", history_str);
+		//printf("history : %s\n", history_str);
 	}
 }

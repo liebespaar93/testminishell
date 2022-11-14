@@ -10,6 +10,7 @@
 		"ft_cmd.h": "c",
 		"stdlib.h": "c",
 		"ft_transrate.h": "c",
-		"unistd.h": "c"
+		"unistd.h": "c",
+		"string.h": "c"
 	}
 }
