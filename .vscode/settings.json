@@ -9,6 +9,7 @@
 		"termios.h": "c",
 		"ft_cmd.h": "c",
 		"stdlib.h": "c",
-		"ft_transrate.h": "c"
+		"ft_transrate.h": "c",
+		"unistd.h": "c"
 	}
 }

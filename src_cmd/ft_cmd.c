@@ -6,7 +6,7 @@
 /*   By: kyoulee <kyoulee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 09:59:50 by kyoulee           #+#    #+#             */
-/*   Updated: 2022/11/14 09:57:09 by kyoulee          ###   ########.fr       */
+/*   Updated: 2022/11/14 11:58:38 by kyoulee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <ft_tool.h>
 #include <ft_cmd.h>
 #include <ft_transrate.h>
+#include <ft_exe.h>
 
 #include <stdio.h>
 // test
@@ -44,8 +45,10 @@ t_cmd	ft_cmd_init(void)
 	return (cmd);
 }
 
-char	*ft_cmd_pipe(t_cmd *cmd, char *temp)
+char	*ft_cmd_pipe(t_cmd *cmd, char *temp, int *flag)
 {
+	*flag = 1;
+	ft_exe(cmd, *flag);
 	ft_argv_printf(cmd);
 	ft_argv_free(cmd);
 	*cmd = ft_cmd_init();
@@ -75,13 +78,15 @@ int	ft_cmd(char *str)
 {
 	t_cmd	cmd;
 	char	*temp;
+	int		flag;
 
 	temp = str;
 	cmd = ft_cmd_init();
+	flag = 0;
 	while (*temp)
 	{
 		if (*temp == '|')
-			temp = ft_cmd_pipe(&cmd, temp);
+			temp = ft_cmd_pipe(&cmd, temp, &flag);
 		else if (ft_strchr("<>", *temp))
 			temp = ft_redirect(&cmd, temp);
 		else if (ft_strchr(WHITE_SPACE, *temp))
@@ -89,6 +94,7 @@ int	ft_cmd(char *str)
 		else
 			temp = ft_cmd_word(&cmd, temp);
 	}
+	ft_exe(&cmd, flag);
 	ft_argv_printf(&cmd);
 	ft_argv_free(&cmd);
 	free(str);

@@ -1,28 +1,30 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: kyoulee <kyoulee@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/14 09:49:01 by kyoulee           #+#    #+#             */
-/*   Updated: 2022/11/14 09:49:44 by kyoulee          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
+#include <unistd.h>
+#include <stdlib.h>
 #include <stdio.h>
-#include <ft_cmd.h>
+#include <pthread.h>
 
-void	ft_argv_printf(t_cmd *cmd)
+
+
+int main(void)
 {
-	int	i;
+	pid_t	pid;
+	int		fd[2];
+	int		ttyfd[2];
+	int		fdpipe[2];
 
-	i == 0;
-	if (!cmd->argv)
-		return ;
-	while (cmd->argv[i])
+	putenv("a=");
+	ttyfd[STDIN_FILENO] = dup(STDIN_FILENO);
+	ttyfd[STDIN_FILENO] = dup(STDOUT_FILENO);
+	pipe(fdpipe);
+	pid = fork();
+	if (pid)
 	{
-		printf("cmd->argv[%d] : %s\n", i, cmd->argv[i]);
-		i++;
+		putenv("a=4");
 	}
+	else
+		wait(NULL);
+	printf("'%s'",getenv("a"));
+	
+	dup2(ttyfd[STDIN_FILENO], STDIN_FILENO);
+	dup2(ttyfd[STDOUT_FILENO], STDOUT_FILENO);
 }
