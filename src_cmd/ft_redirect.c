@@ -6,7 +6,7 @@
 /*   By: kyoulee <kyoulee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 09:00:35 by kyoulee           #+#    #+#             */
-/*   Updated: 2022/11/14 09:46:14 by kyoulee          ###   ########.fr       */
+/*   Updated: 2022/11/15 02:57:41 by kyoulee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,26 @@
 #include <ft_tool.h>
 #include <ft_cmd.h>
 
+
+char	*ft_file_name(char **str)
+{
+	char	*temp;
+	char	*file_name;
+
+	temp = *str;
+	while (*temp && ft_strchr(WHITE_SPACE, *temp))
+		temp++;
+	file_name = ft_strword(temp);
+	*str = temp + ft_strlen(file_name);
+	return (file_name);
+}
+
 char	*ft_redirect_in(char *str, char **file_name_ptr, t_cmd *cmd)
 {
 	int		file;
 	char	*file_name;
 
-	file_name = ft_strword(str);
+	file_name = ft_file_name(&str);
 	*file_name_ptr = file_name;
 	if (!*file_name)
 		return (str);
@@ -42,11 +56,11 @@ char	*ft_redirect_d_in(char *str, char **file_name_ptr, t_cmd *cmd)
 	int		file;
 	char	*file_name;
 
-	file_name = ft_strword(str);
+	file_name = ft_file_name(&str);
 	*file_name_ptr = file_name;
 	if (!*file_name)
 		return (str);
-	file = open("redirect", O_WRONLY | O_CREAT, 0777);
+	file = open("redirect", O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	while (1)
 	{
 		free(readline("> "));
@@ -67,7 +81,7 @@ char	*ft_redirect_d_out(char *str, char **file_name_ptr, t_cmd *cmd)
 	int		file;
 	char	*file_name;
 
-	file_name = ft_strword(str);
+	file_name = ft_file_name(&str);
 	*file_name_ptr = file_name;
 	if (!*file_name)
 		return (str);
@@ -83,11 +97,11 @@ char	*ft_redirect_out(char *str, char **file_name_ptr, t_cmd *cmd)
 	int		file;
 	char	*file_name;
 
-	file_name = ft_strword(str);
+	file_name = ft_file_name(&str);
 	*file_name_ptr = file_name;
 	if (!*file_name)
 		return (str);
-	file = open(file_name, O_WRONLY | O_CREAT, 0777);
+	file = open(file_name, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (file == -1 && strerror(errno))
 		exit(1);
 	cmd->fd_out = file;

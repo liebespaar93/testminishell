@@ -6,7 +6,7 @@
 /*   By: kyoulee <kyoulee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 09:59:21 by kyoulee           #+#    #+#             */
-/*   Updated: 2022/11/14 16:10:06 by kyoulee          ###   ########.fr       */
+/*   Updated: 2022/11/15 03:08:12 by kyoulee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,22 @@ void	ft_exe_pipe(t_cmd *cmd)
 	close(fd_pipe[STDOUT_FILENO]);
 }
 
+void	ft_exe_std(t_cmd *cmd)
+{
+	int		ft_tty[2];
+
+	ft_tty[STDIN_FILENO] = dup(STDIN_FILENO);
+	ft_tty[STDOUT_FILENO] = dup(STDOUT_FILENO);
+	ft_exe_set(cmd);
+	if (cmd->fd_in != STDIN_FILENO)
+		dup2(cmd->fd_in, STDIN_FILENO);
+	if (cmd->fd_out != STDOUT_FILENO)
+		dup2(cmd->fd_out, STDOUT_FILENO);
+	ft_execute(cmd->argv);
+	dup2(ft_tty[STDIN_FILENO], STDIN_FILENO);
+	dup2(ft_tty[STDOUT_FILENO], STDOUT_FILENO);
+}
+
 
 void	ft_exe(t_cmd *cmd, int flag)
 {
@@ -95,8 +111,7 @@ void	ft_exe(t_cmd *cmd, int flag)
 	}
 	else
 	{
-		ft_exe_set(cmd);
-		ft_execute(cmd->argv);
+		ft_exe_std(cmd);
 	}
 }
 
@@ -107,6 +122,8 @@ int	ft_execute(char *argv[])
 	char	*temp;
 	int		pid;
 
+	if (!argv[0])
+		return (0);
 	if (!ft_strcmp("echo", argv[0]))
 		return (ft_echo(ft_void_len((void **)argv), (const char **)argv));
 	else if (!ft_strcmp("cd", argv[0]))
