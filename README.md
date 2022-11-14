@@ -1,0 +1,1 @@
+cc -Wall -Werror -Wextra main.c src_tool/**.c src_running/**.c src_terminal/**.c src_cmd/**.c src_error/**.c  -I include/  -lreadline

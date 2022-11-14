@@ -1,0 +1,14 @@
+{
+	"files.associations": {
+		"ft_tool.h": "c",
+		"fcntl.h": "c",
+		"ft_terminal.h": "c",
+		"readline.h": "c",
+		"history.h": "c",
+		"syslimits.h": "c",
+		"termios.h": "c",
+		"ft_cmd.h": "c",
+		"stdlib.h": "c",
+		"ft_transrate.h": "c"
+	}
+}
