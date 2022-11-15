@@ -6,7 +6,7 @@
 /*   By: kyoulee <kyoulee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 19:24:38 by kyoulee           #+#    #+#             */
-/*   Updated: 2022/10/25 22:42:54 by kyoulee          ###   ########.fr       */
+/*   Updated: 2022/11/15 13:15:31 by kyoulee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 #include <stdio.h>
 #include <string.h>
 #include <errno.h>
+
 #include <ft_tool.h>
-#include <ft_global.h>
 #include <ft_export_tool.h>
 #include <ft_env_tool.h>
 
 int	ft_env_print(void)
 {
-	extern char **environ;
-	int		i;
+	extern char	**environ;
+	int			i;
 
 	i = 0;
 	while (environ[i])
@@ -36,14 +36,10 @@ int	ft_env_print(void)
 
 int	ft_env(int argc, const char *argv[])
 {
-	int i;
-	/* 
-		처음 시작시 설정할 것들
-		* _ 설정
-		* SHLVL 설정 + 1 (빌트인이기때문에 업하지않는다?)
-	*/
+	int	i;
+
 	ft_setenv("_", argv[0], 1);
-	if (argc==1)
+	if (argc == 1)
 		ft_env_print();
 	else
 	{
@@ -60,6 +56,5 @@ int	ft_env(int argc, const char *argv[])
 			ft_export_unset((char *)argv[i]);
 		}
 	}
-
 	return (1);
 }

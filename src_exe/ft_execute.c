@@ -5,66 +5,88 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: kyoulee <kyoulee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/14 09:56:33 by kyoulee           #+#    #+#             */
-/*   Updated: 2022/11/14 13:31:49 by kyoulee          ###   ########.fr       */
+/*   Created: 2022/11/14 09:59:21 by kyoulee           #+#    #+#             */
+/*   Updated: 2022/11/15 14:23:26 by kyoulee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include <stdio.h>
 #include <unistd.h>
-#include <fcntl.h>
+#include <stdio.h>
+#include <string.h>
+#include <errno.h>
 
-void	ft_execute2(char *infile, char *outfile, char **argv, int last_cmd)
+#include <ft_cmd.h>
+#include <ft_tool.h>
+#include <ft_builtin.h>
+#include <ft_export_tool.h>
+#include <ft_env_tool.h>
+#include <ft_file.h>
+
+int	ft_execute_dir(char *argv[])
 {
-	extern char **environ;
+	int			pid;
+	char		**envp;
 
-	int	tmpin=dup(STDIN_FILENO);
-	int	tmpout=dup(STDOUT_FILENO);
-	int fdin;
-	int fdout;
-	int fdpipe[2];
-	int pid;
-
-	if (infile)
-		fdin = open(infile, O_RDONLY);
-	else
-		fdin = dup(tmpin);
-	dup2(fdin, 0);
-	close(fdin);
-	if (!last_cmd)
-	{
-		if (outfile)
-			fdout = open(outfile, O_WRONLY | O_CREAT | O_APPEND);
-		else
-			fdout = dup(tmpout);
-	}
-	else
-	{
-		pipe(fdpipe);
-		fdin = fdpipe[STDIN_FILENO];
-		fdout = fdpipe[STDOUT_FILENO];
-	}
-	dup2(fdout, STDOUT_FILENO);
-	close(fdout);
 	pid = fork();
 	if (!pid)
 	{
-		execve(argv[0], argv, environ);
+		envp = ft_envp();
+		if (execve(argv[0], argv, envp) < 0)
+			printf("%s\n", strerror(errno));
+		ft_free_envp(&envp);
 		exit(1);
 	}
-	dup2(tmpin, STDIN_FILENO);
-	dup2(tmpout, STDOUT_FILENO);
-	close(tmpin);
-	close(tmpout);
-	wait(NULL);
+	return (0);
 }
 
-
-# ifdef TEST_FT_EXECUTE
-int main(int ar, char *av[])
+int	ft_execute_else(char *argv[])
 {
-	ft_execute(NULL, NULL, (char *[2]){"/usr/bin/head", NULL}, 0);
-	return  (0);
+	char		*temp;
+	int			pid;
+	char		**envp;
+
+	temp = ft_get_file(argv[0]);
+	if (*temp)
+	{
+		pid = fork();
+		if (!pid)
+		{
+			envp = ft_envp();
+			if (execve(temp, argv, envp) < 0)
+				printf("%s\n", strerror(errno));
+			ft_free_envp(&envp);
+			exit(1);
+		}
+		wait(&pid);
+	}
+	else
+		printf("%s: command not found\n", argv[0]);
+	free(temp);
+	return (0);
 }
-#endif
+
+int	ft_execute(char *argv[])
+{
+	if (!argv[0])
+		return (0);
+	if (!ft_strcmp("echo", argv[0]))
+		return (ft_echo(ft_void_len((void **)argv), (const char **)argv));
+	else if (!ft_strcmp("cd", argv[0]))
+		return (ft_cd(ft_void_len((void **)argv), (const char **)argv));
+	else if (!ft_strcmp("pwd", argv[0]))
+		return (ft_pwd());
+	else if (!ft_strcmp("export", argv[0]))
+		return (ft_export(ft_void_len((void **)argv), (const char **)argv));
+	else if (!ft_strcmp("unset", argv[0]))
+		return (ft_unset(ft_void_len((void **)argv), (const char **)argv));
+	else if (!ft_strcmp("env", argv[0]))
+		return (ft_env(ft_void_len((void **)argv), (const char **)argv));
+	else if (!ft_strcmp("exit", argv[0]))
+		return (ft_exit(ft_void_len((void **)argv), (const char **)argv));
+	else if (ft_strchr(argv[0], '/'))
+		return (ft_execute_dir(argv));
+	else
+		return (ft_execute_else(argv));
+	return (0);
+}

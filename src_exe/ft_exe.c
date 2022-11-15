@@ -6,7 +6,7 @@
 /*   By: kyoulee <kyoulee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 09:59:21 by kyoulee           #+#    #+#             */
-/*   Updated: 2022/11/15 03:08:12 by kyoulee          ###   ########.fr       */
+/*   Updated: 2022/11/15 14:28:00 by kyoulee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,16 @@
 
 #include <ft_cmd.h>
 #include <ft_tool.h>
-#include <ft_env_tool.h>
 #include <ft_builtin.h>
+#include <ft_export_tool.h>
+#include <ft_env_tool.h>
+#include <ft_exe.h>
 
-#include <stdio.h>
-int		ft_execute(char *argv[]);
+/**
+ * 마즈막 실행코드 출력 (파이프가 있을시 전역번수 적용 x)
+ * 코드 클린업
+ * $? 만들기
+ */
 
 void	ft_exe_set(t_cmd *cmd)
 {
@@ -51,7 +56,6 @@ void	ft_exe_set(t_cmd *cmd)
 			cmd->argv[i - 1] = cmd->argv[i];
 	}
 }
-
 
 void	ft_exe_pipe(t_cmd *cmd)
 {
@@ -102,7 +106,6 @@ void	ft_exe_std(t_cmd *cmd)
 	dup2(ft_tty[STDOUT_FILENO], STDOUT_FILENO);
 }
 
-
 void	ft_exe(t_cmd *cmd, int flag)
 {
 	if (flag)
@@ -113,60 +116,4 @@ void	ft_exe(t_cmd *cmd, int flag)
 	{
 		ft_exe_std(cmd);
 	}
-}
-
-#include <ft_file.h>
-
-int	ft_execute(char *argv[])
-{
-	char	*temp;
-	int		pid;
-
-	if (!argv[0])
-		return (0);
-	if (!ft_strcmp("echo", argv[0]))
-		return (ft_echo(ft_void_len((void **)argv), (const char **)argv));
-	else if (!ft_strcmp("cd", argv[0]))
-		return (ft_cd(ft_void_len((void **)argv), (const char **)argv));
-	else if (!ft_strcmp("pwd", argv[0]))
-		return (ft_pwd());
-	else if (!ft_strcmp("export", argv[0]))
-		return (ft_export(ft_void_len((void **)argv), (const char **)argv));
-	else if (!ft_strcmp("unset", argv[0]))
-		return (ft_unset(ft_void_len((void **)argv), (const char **)argv));
-	else if (!ft_strcmp("env", argv[0]))
-		return (ft_env(ft_void_len((void **)argv), (const char **)argv));
-	else if (!ft_strcmp("exit", argv[0]))
-		return (ft_exit(ft_void_len((void **)argv), (const char **)argv));
-	else if (ft_strchr(argv[0], '/'))
-	{
-		pid = fork();
-		if (!pid)
-		{
-			if (execve(argv[0], argv, NULL) < 0)
-						printf("%s\n", strerror(errno));
-			exit(1);
-		}
-	}
-	else
-	{
-		temp = ft_get_file(argv[0]);
-		if (temp)
-		{
-			pid = fork();
-			if (!pid)
-			{
-				if (execve(temp, argv, NULL) < 0)
-				{
-					printf("%s\n", strerror(errno));
-					exit(1);
-				}
-			}
-			wait(&pid);	
-		}
-		else 
-			printf("%s: command not found\n", argv[0]);
-		free(temp);
-	}
-	return (1);
 }

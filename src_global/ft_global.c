@@ -6,7 +6,7 @@
 /*   By: kyoulee <kyoulee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 12:19:18 by kyoulee           #+#    #+#             */
-/*   Updated: 2022/11/14 12:22:47 by kyoulee          ###   ########.fr       */
+/*   Updated: 2022/11/15 13:24:11 by kyoulee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,23 @@ void	ft_global_init(const char **envp)
 	char	**tmp;
 	int		i;
 
-	global.export_ptr = ft_export_init(envp);
-	global.origin_envp = malloc(sizeof(char *) * (ft_void_len((void **)envp) + 1));
-	if (!global.origin_envp)
+	g_global.export_ptr = ft_export_init(envp);
+	g_global.origin_envp = \
+		malloc(sizeof(char *) * (ft_void_len((void **)envp) + 1));
+	if (!g_global.origin_envp)
 		return ;
 	tmp = (char **)envp;
 	i = 0;
 	while (*tmp)
-		global.origin_envp[i++] = *tmp++;
-	global.origin_envp[i] = NULL;
+		g_global.origin_envp[i++] = *tmp++;
+	g_global.origin_envp[i] = NULL;
 }
 
 int	ft_find_origin_envp(void **ptr)
 {
 	char	**tmp;
-	
-	tmp = (char **)global.origin_envp;
+
+	tmp = (char **)g_global.origin_envp;
 	while (*tmp)
 	{
 		if (*tmp == *ptr)

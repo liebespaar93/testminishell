@@ -6,20 +6,21 @@
 /*   By: kyoulee <kyoulee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 23:03:12 by kyoulee           #+#    #+#             */
-/*   Updated: 2022/10/25 23:12:10 by kyoulee          ###   ########.fr       */
+/*   Updated: 2022/11/15 12:44:36 by kyoulee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <stdio.h>
 
 #include <ft_env_tool.h>
 #include <ft_export_tool.h>
 #include <ft_tool.h>
-#include <stdio.h>
 
 int	ft_unset(int argc, const char *argv[])
 {
 	int	flag;
-	int i;
-	
+	int	i;
+
 	ft_setenv("_", argv[0], 1);
 	flag = 0;
 	if (argc == 1)

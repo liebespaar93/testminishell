@@ -6,7 +6,7 @@
 /*   By: kyoulee <kyoulee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 19:19:40 by kyoulee           #+#    #+#             */
-/*   Updated: 2022/11/13 14:08:22 by kyoulee          ###   ########.fr       */
+/*   Updated: 2022/11/15 12:51:16 by kyoulee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,7 @@ void	*ft_memcpy(void *dst, const void *src, size_t n);
 
 int		ft_atoi(const char *str);
 char	*ft_itoa(int n);
+
+char	*ft_file_name(char **str);
 
 #endif

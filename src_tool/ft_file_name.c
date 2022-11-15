@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_envargs.c                                       :+:      :+:    :+:   */
+/*   ft_file_name.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kyoulee <kyoulee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/24 13:30:24 by kyoulee           #+#    #+#             */
-/*   Updated: 2022/10/26 04:41:08 by kyoulee          ###   ########.fr       */
+/*   Created: 2022/11/15 12:50:48 by kyoulee           #+#    #+#             */
+/*   Updated: 2022/11/15 12:50:53 by kyoulee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
+#include <ft_tool.h>
 
-int ft_envargs(void)
+char	*ft_file_name(char **str)
 {
-	extern char **environ;
-	char **ep;
+	char	*temp;
+	char	*file_name;
 
-	ep = environ;
-	while (*ep != NULL)
-		printf("environ: %s\n", *ep++);
-	return (EXIT_SUCCESS);
+	temp = *str;
+	while (*temp && ft_strchr(WHITE_SPACE, *temp))
+		temp++;
+	file_name = ft_strword(temp);
+	*str = temp + ft_strlen(file_name);
+	return (file_name);
 }

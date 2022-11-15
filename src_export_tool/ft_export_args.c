@@ -1,10 +1,48 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_export_args.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kyoulee <kyoulee@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/15 13:09:10 by kyoulee           #+#    #+#             */
+/*   Updated: 2022/11/15 13:24:11 by kyoulee          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <stdio.h>
 #include <stdlib.h>
+
 #include <ft_global.h>
 #include <ft_tool.h>
-#include <stdio.h>
 #include <ft_env_tool.h>
+
+char	*ft_export_max(void)
+{
+	char	*max;
+	int		i;
+
+	i = 0;
+	max = "";
+	while (g_global.export_ptr[i])
+	{
+		if (ft_strcmp(max, g_global.export_ptr[i]) < 0)
+			max = (char *)g_global.export_ptr[i];
+		i++;
+	}
+	return (max);
+}
+
+void	ft_export_printf(char *less)
+{
+	if (ft_strcmp("_", less))
+	{
+		printf("declare -x %s", less);
+		if (getenv(less))
+			printf("=\"%s\"", getenv(less));
+		printf("\n");
+	}
+}
 
 int	ft_export_args(void)
 {
@@ -14,32 +52,20 @@ int	ft_export_args(void)
 	char	*last;
 
 	last = "";
-	max = "";
 	less = "";
-	i = 0;
-	while (global.export_ptr[i])
-	{
-		if (ft_strcmp(max, global.export_ptr[i]) < 0)
-			max = (char *)global.export_ptr[i];
-		i++;
-	}
+	max = ft_export_max();
 	while (less != max)
 	{
 		i = 0;
 		less = max;
-		while (global.export_ptr[i])
+		while (g_global.export_ptr[i])
 		{
-			if (ft_strcmp(last, global.export_ptr[i]) < 0 && ft_strcmp(less, global.export_ptr[i]) > 0)
-				less = (char *)global.export_ptr[i];
+			if (ft_strcmp(last, g_global.export_ptr[i]) < 0 && \
+				ft_strcmp(less, g_global.export_ptr[i]) > 0)
+				less = (char *)g_global.export_ptr[i];
 			i++;
 		}
-		if (ft_strcmp("_", less))
-		{
-			printf("declare -x %s", less);
-			if (getenv(less))
-				printf("=\"%s\"", getenv(less));
-			printf("\n");
-		}
+		ft_export_printf(less);
 		last = less;
 	}
 	return (EXIT_SUCCESS);

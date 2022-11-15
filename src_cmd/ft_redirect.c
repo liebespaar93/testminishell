@@ -6,7 +6,7 @@
 /*   By: kyoulee <kyoulee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 09:00:35 by kyoulee           #+#    #+#             */
-/*   Updated: 2022/11/15 02:57:41 by kyoulee          ###   ########.fr       */
+/*   Updated: 2022/11/15 12:51:57 by kyoulee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,6 @@
 
 #include <ft_tool.h>
 #include <ft_cmd.h>
-
-
-char	*ft_file_name(char **str)
-{
-	char	*temp;
-	char	*file_name;
-
-	temp = *str;
-	while (*temp && ft_strchr(WHITE_SPACE, *temp))
-		temp++;
-	file_name = ft_strword(temp);
-	*str = temp + ft_strlen(file_name);
-	return (file_name);
-}
 
 char	*ft_redirect_in(char *str, char **file_name_ptr, t_cmd *cmd)
 {
@@ -126,7 +112,7 @@ char	*ft_redirect(t_cmd *cmd, char *str)
 	}
 	else if (!ft_strncmp(">", temp, 1) && temp++)
 	{
-		if (cmd->fd_out != STDOUT_FILENO && close(cmd->fd_in))
+		if (cmd->fd_out != STDOUT_FILENO && close(cmd->fd_out))
 			cmd->fd_out = STDOUT_FILENO;
 		if (!ft_strncmp(">>", temp - 1, 2) && temp++)
 			temp = ft_redirect_d_out(temp, &file_name, cmd);

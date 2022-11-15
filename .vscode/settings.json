@@ -11,6 +11,7 @@
 		"stdlib.h": "c",
 		"ft_transrate.h": "c",
 		"unistd.h": "c",
-		"string.h": "c"
+		"string.h": "c",
+		"ft_cd.h": "c"
 	}
 }

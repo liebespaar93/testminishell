@@ -6,11 +6,12 @@
 /*   By: kyoulee <kyoulee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:32:42 by kyoulee           #+#    #+#             */
-/*   Updated: 2022/11/14 16:04:52 by kyoulee          ###   ########.fr       */
+/*   Updated: 2022/11/15 12:46:39 by kyoulee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
+
 #include <ft_tool.h>
 #include <ft_env_tool.h>
 
@@ -35,7 +36,7 @@ int	ft_echo(int argc, const char *argv[])
 		i++;
 	}
 	while (i < argc)
-		printf("%s",argv[i++]);
+		printf("%s", argv[i++]);
 	if (flag)
 		printf("\n");
 	return (0);
