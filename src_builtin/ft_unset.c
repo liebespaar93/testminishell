@@ -6,7 +6,7 @@
 /*   By: kyoulee <kyoulee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 23:03:12 by kyoulee           #+#    #+#             */
-/*   Updated: 2022/11/15 12:44:36 by kyoulee          ###   ########.fr       */
+/*   Updated: 2022/11/16 15:09:18 by kyoulee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	ft_unset(int argc, const char *argv[])
 	int	flag;
 	int	i;
 
-	ft_setenv("_", argv[0], 1);
 	flag = 0;
 	if (argc == 1)
 		return (0);

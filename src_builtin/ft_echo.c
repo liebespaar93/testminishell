@@ -6,14 +6,14 @@
 /*   By: kyoulee <kyoulee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:32:42 by kyoulee           #+#    #+#             */
-/*   Updated: 2022/11/15 12:46:39 by kyoulee          ###   ########.fr       */
+/*   Updated: 2022/11/16 15:08:12 by kyoulee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
+#include <unistd.h>
 
 #include <ft_tool.h>
-#include <ft_env_tool.h>
 
 int	ft_echo(int argc, const char *argv[])
 {
@@ -23,7 +23,6 @@ int	ft_echo(int argc, const char *argv[])
 
 	i = 1;
 	flag = 1;
-	ft_setenv("_", argv[0], 1);
 	while (i < argc && !ft_strncmp(argv[i], "-n", 2))
 	{
 		temp = (char *)argv[i];
@@ -36,8 +35,11 @@ int	ft_echo(int argc, const char *argv[])
 		i++;
 	}
 	while (i < argc)
-		printf("%s", argv[i++]);
+	{
+		write(STDOUT_FILENO, argv[i], ft_strlen(argv[i]));
+		i++;
+	}
 	if (flag)
-		printf("\n");
+		write(STDOUT_FILENO, "\n", 1);
 	return (0);
 }

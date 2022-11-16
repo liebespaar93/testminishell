@@ -6,7 +6,7 @@
 /*   By: kyoulee <kyoulee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 09:59:21 by kyoulee           #+#    #+#             */
-/*   Updated: 2022/11/15 14:28:00 by kyoulee          ###   ########.fr       */
+/*   Updated: 2022/11/16 15:17:18 by kyoulee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ void	ft_exe_std(t_cmd *cmd)
 
 void	ft_exe(t_cmd *cmd, int flag)
 {
+	ft_setenv("_", cmd->argv[0], 1);
 	if (flag)
 	{
 		ft_exe_pipe(cmd);

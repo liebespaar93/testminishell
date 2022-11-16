@@ -6,21 +6,28 @@
 /*   By: kyoulee <kyoulee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:50:48 by kyoulee           #+#    #+#             */
-/*   Updated: 2022/11/15 12:50:53 by kyoulee          ###   ########.fr       */
+/*   Updated: 2022/11/16 13:31:40 by kyoulee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_tool.h>
 
+#include <stdio.h>
+
 char	*ft_file_name(char **str)
 {
+	char	*word;
 	char	*temp;
 	char	*file_name;
 
 	temp = *str;
 	while (*temp && ft_strchr(WHITE_SPACE, *temp))
 		temp++;
-	file_name = ft_strword(temp);
-	*str = temp + ft_strlen(file_name);
+	word = temp;
+	if (*word)
+		while (*temp && !ft_strchr(WHITE_SPACE, *temp))
+			temp++;
+	file_name = ft_strncpy(word, temp - word);
+	*str = temp;
 	return (file_name);
 }

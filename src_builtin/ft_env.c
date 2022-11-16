@@ -6,7 +6,7 @@
 /*   By: kyoulee <kyoulee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 19:24:38 by kyoulee           #+#    #+#             */
-/*   Updated: 2022/11/15 13:15:31 by kyoulee          ###   ########.fr       */
+/*   Updated: 2022/11/16 15:08:27 by kyoulee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int	ft_env(int argc, const char *argv[])
 {
 	int	i;
 
-	ft_setenv("_", argv[0], 1);
 	if (argc == 1)
 		ft_env_print();
 	else

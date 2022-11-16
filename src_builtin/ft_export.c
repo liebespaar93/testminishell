@@ -6,7 +6,7 @@
 /*   By: kyoulee <kyoulee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 13:23:12 by kyoulee           #+#    #+#             */
-/*   Updated: 2022/11/15 12:37:25 by kyoulee          ###   ########.fr       */
+/*   Updated: 2022/11/16 15:08:41 by kyoulee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include <stdio.h>
 
 #include <ft_tool.h>
-#include <ft_env_tool.h>
 #include <ft_export_tool.h>
 
 int	ft_export(int argc, const char *argv[])
@@ -22,7 +21,6 @@ int	ft_export(int argc, const char *argv[])
 	int	i;
 	int	flag;
 
-	ft_setenv("_", argv[0], 1);
 	flag = 0;
 	if (argc == 1)
 	{

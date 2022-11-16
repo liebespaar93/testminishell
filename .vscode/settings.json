@@ -12,6 +12,9 @@
 		"ft_transrate.h": "c",
 		"unistd.h": "c",
 		"string.h": "c",
-		"ft_cd.h": "c"
+		"ft_cd.h": "c",
+		"ft_export_tool.h": "c",
+		"ft_env_tool.h": "c",
+		"ft_global.h": "c"
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: kyoulee <kyoulee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:44:45 by kyoulee           #+#    #+#             */
-/*   Updated: 2022/11/15 12:46:15 by kyoulee          ###   ########.fr       */
+/*   Updated: 2022/11/16 15:09:08 by kyoulee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	ft_cd(int argc, const char *argv[])
 	const char	*target;
 
 	(void)argc;
-	ft_setenv("_", argv[0], 1);
 	target = argv[1];
 	if (!ft_strcmp(argv[1], "~"))
 		target = getenv("HOME");

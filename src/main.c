@@ -6,7 +6,7 @@
 /*   By: kyoulee <kyoulee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 12:22:07 by kyoulee           #+#    #+#             */
-/*   Updated: 2022/11/15 13:24:11 by kyoulee          ###   ########.fr       */
+/*   Updated: 2022/11/16 15:18:48 by kyoulee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@
 #include <ft_tool.h>
 #include <ft_terminal.h>
 #include <ft_global.h>
+#include <ft_env_tool.h>
 
-int	main(int argc, char *argv[], char *envp[])
+int	main(int argc, char *argv[], const char *envp[])
 {
 	struct termios	oldtty;
 	struct termios	newtty;
@@ -26,19 +27,21 @@ int	main(int argc, char *argv[], char *envp[])
 
 	(void)argc;
 	(void)argv;
-	ft_global_init((const char **)envp);
-	g_global.origin_envp_ptr = (const char **)envp;
+	ft_global_init(envp);
+	g_global.origin_envp_ptr = envp;
 	fd = open(ttyname(STDIN_FILENO), O_RDWR | O_NOCTTY);
 	if (fd < 0)
-	{
-		perror(ttyname(STDIN_FILENO));
 		return (-1);
-	}
 	tcgetattr(fd, &oldtty);
 	ft_bzero(&newtty, sizeof(struct termios));
 	ft_bash_ttyset(&newtty);
 	tcsetattr(fd, TCSANOW, &newtty);
+	close(fd);
 	ft_tty_loop();
+	fd = open(ttyname(STDIN_FILENO), O_RDWR | O_NOCTTY);
+	if (fd < 0)
+		return (-1);
 	tcsetattr(fd, TCSANOW, &oldtty);
+	close(fd);
 	return (1);
 }

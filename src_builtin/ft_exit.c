@@ -6,14 +6,13 @@
 /*   By: kyoulee <kyoulee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 23:17:49 by kyoulee           #+#    #+#             */
-/*   Updated: 2022/11/15 12:41:45 by kyoulee          ###   ########.fr       */
+/*   Updated: 2022/11/16 15:08:33 by kyoulee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <stdio.h>
 
-#include <ft_env_tool.h>
 #include <ft_tool.h>
 
 int	ft_exit(int argc, const char *argv[])
@@ -21,7 +20,6 @@ int	ft_exit(int argc, const char *argv[])
 	int	i;
 
 	i = 0;
-	ft_setenv("_", argv[0], 1);
 	if (argc > 2)
 	{
 		printf("%s: too many arguments\n", argv[0]);

@@ -6,7 +6,7 @@
 /*   By: kyoulee <kyoulee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 13:31:51 by kyoulee           #+#    #+#             */
-/*   Updated: 2022/11/15 13:57:51 by kyoulee          ###   ########.fr       */
+/*   Updated: 2022/11/16 15:15:50 by kyoulee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,18 @@ char	**ft_environ_addr(char **name_ptr)
 	return (tmp);
 }
 
-void	ft_environ_cpy(char **dst, char **src)
+void	ft_environ_cpy(char **dst)
 {
+	extern char	**environ;
 	int			i;
 
 	i = 0;
-	if (!dst || !src)
+	if (!dst || !environ)
 		return ;
-	while (src[i] != NULL)
+	while (environ[i] != NULL)
 	{
-		dst[i] = src[i];
-		src++;
+		dst[i] = environ[i];
+		i++;
 	}
 }
 
@@ -69,7 +70,7 @@ int	ft_putenv(const char *str)
 		tmp = (char **)malloc((len + 2) * sizeof(char *));
 		if (!tmp)
 			return (0);
-		ft_environ_cpy(tmp, (char **)environ);
+		ft_environ_cpy(tmp);
 		tmp[len] = (char *)str;
 		tmp[len + 1] = NULL;
 		if (environ != (char **)g_global.origin_envp_ptr)
