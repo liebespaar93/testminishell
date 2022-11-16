@@ -1,1 +1,0 @@
-cho: command not found

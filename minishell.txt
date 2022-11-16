@@ -1,4 +1,4 @@
-speed 38400 baud; 11 rows; 80 columns;
+speed 38400 baud; 25 rows; 90 columns;
 lflags: icanon isig iexten echo echoe echok echoke -echonl echoctl
 	-echoprt -altwerase -noflsh -tostop -flusho pendin -nokerninfo
 	-extproc
@@ -8,6 +8,6 @@ oflags: opost onlcr -oxtabs -onocr -onlret
 cflags: cread cs8 -parenb -parodd hupcl -clocal -cstopb -crtscts -dsrflow
 	-dtrflow -mdmbuf
 cchars: discard = ^O; dsusp = ^Y; eof = ^D; eol = <undef>;
-	eol2 = <undef>; erase = ^?; intr = +; kill = ^U; lnext = ^V;
-	min = 1; quit = ^@; reprint = ^R; start = ^Q; status = ^T;
+	eol2 = <undef>; erase = ^?; intr = ^C; kill = ^U; lnext = ^V;
+	min = 1; quit = ^\; reprint = ^R; start = ^Q; status = ^T;
 	stop = ^S; susp = ^Z; time = 0; werase = ^W;

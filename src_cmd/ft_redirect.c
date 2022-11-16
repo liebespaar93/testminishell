@@ -6,7 +6,7 @@
 /*   By: kyoulee <kyoulee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 09:00:35 by kyoulee           #+#    #+#             */
-/*   Updated: 2022/11/15 12:51:57 by kyoulee          ###   ########.fr       */
+/*   Updated: 2022/11/16 15:51:48 by kyoulee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,9 @@ char	*ft_redirect_d_in(char *str, char **file_name_ptr, t_cmd *cmd)
 	while (1)
 	{
 		free(readline("> "));
-		if (!ft_strncmp(rl_line_buffer, file_name, ft_strlen(file_name)))
-			break ;
+		if (!ft_strncmp(rl_line_buffer, file_name, ft_strlen(file_name)) && \
+			!*(rl_line_buffer + ft_strlen(file_name) + 1))
+				break;
 		write(file, rl_line_buffer, ft_strlen(rl_line_buffer));
 	}
 	close(file);

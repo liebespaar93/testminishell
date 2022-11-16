@@ -6,7 +6,7 @@
 /*   By: kyoulee <kyoulee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 12:22:07 by kyoulee           #+#    #+#             */
-/*   Updated: 2022/11/16 15:18:48 by kyoulee          ###   ########.fr       */
+/*   Updated: 2022/11/16 15:46:21 by kyoulee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	main(int argc, char *argv[], const char *envp[])
 	tcgetattr(fd, &oldtty);
 	ft_bzero(&newtty, sizeof(struct termios));
 	ft_bash_ttyset(&newtty);
+	newtty.c_cc[VQUIT] = 0;
 	tcsetattr(fd, TCSANOW, &newtty);
 	close(fd);
 	ft_tty_loop();
