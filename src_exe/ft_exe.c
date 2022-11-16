@@ -6,7 +6,7 @@
 /*   By: kyoulee <kyoulee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 09:59:21 by kyoulee           #+#    #+#             */
-/*   Updated: 2022/11/16 15:17:18 by kyoulee          ###   ########.fr       */
+/*   Updated: 2022/11/16 17:02:41 by kyoulee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@
 #include <ft_exe.h>
 
 /**
- * 마즈막 실행코드 출력 (파이프가 있을시 전역번수 적용 x)
- * 코드 클린업
  * $? 만들기
  */
 
@@ -57,14 +55,11 @@ void	ft_exe_set(t_cmd *cmd)
 	}
 }
 
-void	ft_exe_pipe(t_cmd *cmd)
+void	ft_exe_fork(t_cmd *cmd, int last_exe)
 {
 	pid_t	pid;
 	int		fd_pipe[2];
-	int		ft_tty[2];
 
-	ft_tty[STDIN_FILENO] = dup(STDIN_FILENO);
-	ft_tty[STDOUT_FILENO] = dup(STDOUT_FILENO);
 	pipe(fd_pipe);
 	pid = fork();
 	if (!pid)
@@ -74,13 +69,11 @@ void	ft_exe_pipe(t_cmd *cmd)
 			dup2(fd_pipe[STDIN_FILENO], STDIN_FILENO);
 		else
 			dup2(cmd->fd_in, STDIN_FILENO);
-		if (cmd->fd_out == STDOUT_FILENO)
+		if (cmd->fd_out == STDOUT_FILENO && !last_exe)
 			dup2(fd_pipe[STDOUT_FILENO], STDOUT_FILENO);
 		else
 			dup2(cmd->fd_out, STDOUT_FILENO);
 		ft_execute(cmd->argv);
-		dup2(ft_tty[STDIN_FILENO], STDIN_FILENO);
-		dup2(ft_tty[STDOUT_FILENO], STDOUT_FILENO);
 		close(fd_pipe[STDIN_FILENO]);
 		close(fd_pipe[STDOUT_FILENO]);
 		exit(0);
@@ -92,29 +85,29 @@ void	ft_exe_pipe(t_cmd *cmd)
 
 void	ft_exe_std(t_cmd *cmd)
 {
-	int		ft_tty[2];
-
-	ft_tty[STDIN_FILENO] = dup(STDIN_FILENO);
-	ft_tty[STDOUT_FILENO] = dup(STDOUT_FILENO);
 	ft_exe_set(cmd);
 	if (cmd->fd_in != STDIN_FILENO)
 		dup2(cmd->fd_in, STDIN_FILENO);
 	if (cmd->fd_out != STDOUT_FILENO)
 		dup2(cmd->fd_out, STDOUT_FILENO);
 	ft_execute(cmd->argv);
-	dup2(ft_tty[STDIN_FILENO], STDIN_FILENO);
-	dup2(ft_tty[STDOUT_FILENO], STDOUT_FILENO);
 }
 
-void	ft_exe(t_cmd *cmd, int flag)
+void	ft_exe(t_cmd *cmd, int flag, int last_exe)
 {
+	int		ft_tty[2];
+
 	ft_setenv("_", cmd->argv[0], 1);
+	ft_tty[STDIN_FILENO] = dup(STDIN_FILENO);
+	ft_tty[STDOUT_FILENO] = dup(STDOUT_FILENO);
 	if (flag)
 	{
-		ft_exe_pipe(cmd);
+		ft_exe_fork(cmd, last_exe);
 	}
 	else
 	{
 		ft_exe_std(cmd);
 	}
+	dup2(ft_tty[STDIN_FILENO], STDIN_FILENO);
+	dup2(ft_tty[STDOUT_FILENO], STDOUT_FILENO);
 }

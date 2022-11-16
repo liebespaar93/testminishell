@@ -6,7 +6,7 @@
 /*   By: kyoulee <kyoulee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 09:59:50 by kyoulee           #+#    #+#             */
-/*   Updated: 2022/11/15 14:22:00 by kyoulee          ###   ########.fr       */
+/*   Updated: 2022/11/16 16:04:52 by kyoulee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_cmd	ft_cmd_init(void)
 char	*ft_cmd_pipe(t_cmd *cmd, char *temp, int *flag)
 {
 	*flag = 1;
-	ft_exe(cmd, *flag);
+	ft_exe(cmd, *flag, 0);
 	ft_argv_free(cmd);
 	*cmd = ft_cmd_init();
 	return (temp + 1);
@@ -76,7 +76,7 @@ int	ft_cmd(char *str)
 		else
 			temp = ft_cmd_word(&cmd, temp);
 	}
-	ft_exe(&cmd, flag);
+	ft_exe(&cmd, flag, 1);
 	ft_argv_free(&cmd);
 	free(str);
 	return (1);
