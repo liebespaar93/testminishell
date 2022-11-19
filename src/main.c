@@ -6,23 +6,24 @@
 /*   By: kyoulee <kyoulee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 12:22:07 by kyoulee           #+#    #+#             */
-/*   Updated: 2022/11/16 15:46:21 by kyoulee          ###   ########.fr       */
+/*   Updated: 2022/11/20 01:25:38 by kyoulee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include <unistd.h>
-#include <stdio.h>
 
 #include <ft_tool.h>
 #include <ft_terminal.h>
 #include <ft_global.h>
 #include <ft_env_tool.h>
+#include <ft_signal.h>
 
 int	main(int argc, char *argv[], const char *envp[])
 {
 	struct termios	oldtty;
 	struct termios	newtty;
+
 	int				fd;
 
 	(void)argc;
@@ -35,9 +36,9 @@ int	main(int argc, char *argv[], const char *envp[])
 	tcgetattr(fd, &oldtty);
 	ft_bzero(&newtty, sizeof(struct termios));
 	ft_bash_ttyset(&newtty);
-	newtty.c_cc[VQUIT] = 0;
 	tcsetattr(fd, TCSANOW, &newtty);
 	close(fd);
+	ft_putenv(ft_strdup("?=0"));
 	ft_tty_loop();
 	fd = open(ttyname(STDIN_FILENO), O_RDWR | O_NOCTTY);
 	if (fd < 0)

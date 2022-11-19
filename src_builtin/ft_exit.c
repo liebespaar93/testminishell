@@ -6,7 +6,7 @@
 /*   By: kyoulee <kyoulee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 23:17:49 by kyoulee           #+#    #+#             */
-/*   Updated: 2022/11/16 15:08:33 by kyoulee          ###   ########.fr       */
+/*   Updated: 2022/11/19 10:29:54 by kyoulee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,15 @@ int	ft_exit(int argc, const char *argv[])
 		printf("%s: too many arguments\n", argv[0]);
 		return (1);
 	}
-	while (argv[1][i])
+	while (argv[1])
 	{
 		if (!ft_isdigit(argv[1][i++]))
+		{
 			printf("%s: %s: numeric argument required\n", argv[0], argv[1]);
-		exit(255);
+			exit(255);
+		}
+		i = ft_atoi(argv[1]);
+		exit(i % 256);
 	}
-	i = ft_atoi(argv[1]);
-	exit(i % 256);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: kyoulee <kyoulee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 09:45:04 by kyoulee           #+#    #+#             */
-/*   Updated: 2022/11/14 09:48:31 by kyoulee          ###   ########.fr       */
+/*   Updated: 2022/11/19 10:36:30 by kyoulee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,5 @@ void	ft_argv_free(t_cmd *cmd)
 	while (cmd->argv[i])
 		free(cmd->argv[i++]);
 	free(cmd->argv);
+	cmd->argv = NULL;
 }

@@ -6,13 +6,11 @@
 /*   By: kyoulee <kyoulee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:50:48 by kyoulee           #+#    #+#             */
-/*   Updated: 2022/11/16 13:31:40 by kyoulee          ###   ########.fr       */
+/*   Updated: 2022/11/19 21:02:59 by kyoulee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_tool.h>
-
-#include <stdio.h>
 
 char	*ft_file_name(char **str)
 {

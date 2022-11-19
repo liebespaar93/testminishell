@@ -1,28 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strword.c                                      :+:      :+:    :+:   */
+/*   ft_signal_set.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kyoulee <kyoulee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/08 09:32:12 by kyoulee           #+#    #+#             */
-/*   Updated: 2022/11/08 09:33:05 by kyoulee          ###   ########.fr       */
+/*   Created: 2022/11/20 01:24:42 by kyoulee           #+#    #+#             */
+/*   Updated: 2022/11/20 01:33:06 by kyoulee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_tool.h>
-#include <sys/_types/_null.h>
+#include <signal.h>
 
-char	*ft_strword(char *str)
+int	ft_signal_set(void)
 {
-	char	*temp;
-
-	temp = str;
-	if (*str == '?')
-		return (ft_strdup("?"));
-	while (ft_isalpha(*temp) || ft_isdigit(*temp) || *temp == '_')
-		temp++;
-	if (temp - str)
-		return (ft_strncpy(str, temp - str));
-	return (ft_strdup(""));
 }

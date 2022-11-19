@@ -6,7 +6,7 @@
 /*   By: kyoulee <kyoulee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 11:56:36 by kyoulee           #+#    #+#             */
-/*   Updated: 2022/11/16 16:05:06 by kyoulee          ###   ########.fr       */
+/*   Updated: 2022/11/19 21:16:31 by kyoulee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 
 # include <ft_cmd.h>
 
-void	ft_exe(t_cmd *cmd, int flag, int last_exe);
+void	ft_exe(t_cmd *cmd);
 int		ft_execute(char *argv[]);
 #endif
