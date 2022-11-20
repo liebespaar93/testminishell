@@ -6,10 +6,12 @@
 /*   By: kyoulee <kyoulee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 10:05:26 by kyoulee           #+#    #+#             */
-/*   Updated: 2022/11/13 10:08:44 by kyoulee          ###   ########.fr       */
+/*   Updated: 2022/11/20 13:07:11 by kyoulee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
+#include <fcntl.h>
 #include <termios.h>
 
 void	ft_bash_ttyset_c_cc(struct termios *tty)
@@ -46,4 +48,34 @@ void	ft_bash_ttyset(struct termios *tty)
 	(*tty).c_ispeed = B38400;
 	(*tty).c_ospeed = B38400;
 	ft_bash_ttyset_c_cc(tty);
+}
+
+int	ft_tty_quit_on(void)
+{
+	int				fd;
+	struct termios	newtty;
+
+	fd = open(ttyname(STDIN_FILENO), O_RDWR | O_NOCTTY);
+	if (fd < 0)
+		return (-1);
+	tcgetattr(fd, &newtty);
+	newtty.c_cc[VQUIT] = 28;
+	tcsetattr(fd, TCSANOW, &newtty);
+	close(fd);
+	return (0);
+}
+
+int	ft_tty_quit_off(void)
+{
+	int				fd;
+	struct termios	newtty;
+
+	fd = open(ttyname(STDIN_FILENO), O_RDWR | O_NOCTTY);
+	if (fd < 0)
+		return (-1);
+	tcgetattr(fd, &newtty);
+	newtty.c_cc[VQUIT] = 0;
+	tcsetattr(fd, TCSANOW, &newtty);
+	close(fd);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: kyoulee <kyoulee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 12:22:07 by kyoulee           #+#    #+#             */
-/*   Updated: 2022/11/20 01:25:38 by kyoulee          ###   ########.fr       */
+/*   Updated: 2022/11/20 11:23:19 by kyoulee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 #include <ft_terminal.h>
 #include <ft_global.h>
 #include <ft_env_tool.h>
-#include <ft_signal.h>
 
 int	main(int argc, char *argv[], const char *envp[])
 {

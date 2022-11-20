@@ -6,7 +6,7 @@
 /*   By: kyoulee <kyoulee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 08:16:36 by kyoulee           #+#    #+#             */
-/*   Updated: 2022/11/13 11:11:49 by kyoulee          ###   ########.fr       */
+/*   Updated: 2022/11/20 11:27:58 by kyoulee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,8 @@
 
 void	ft_bash_ttyset(struct termios *tty);
 void	ft_tty_loop(void);
+
+int		ft_tty_quit_on(void);
+int		ft_tty_quit_off(void);
 
 #endif

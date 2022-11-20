@@ -6,7 +6,7 @@
 /*   By: kyoulee <kyoulee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 09:59:50 by kyoulee           #+#    #+#             */
-/*   Updated: 2022/11/20 01:18:13 by kyoulee          ###   ########.fr       */
+/*   Updated: 2022/11/20 14:17:51 by kyoulee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ t_cmd	ft_cmd_init(void)
 	return (cmd);
 }
 
+#include <stdio.h>
 char	*ft_cmd_word(t_cmd *cmd, char *str)
 {
 	char	*temp;
@@ -59,6 +60,8 @@ void	ft_cmd_envset(t_cmd *cmd, int std)
 
 	i = 0;
 	index = 0;
+	if (!cmd->argv)
+		return ;
 	while (cmd->argv[index])
 	{
 		temp = cmd->argv[index];
@@ -128,6 +131,22 @@ pid_t	ft_cmd_std(t_cmd *cmd)
 	return (pid);
 }
 
+void ft_cmd_wait(pid_t *pid, int index)
+{
+	int		std;
+	char	*str_num;
+	int		i;
+	i = 0;
+	while (i < index)
+	{
+		waitpid(pid[i], &std, 0);
+		i++;
+	}
+	str_num = ft_itoa(std);
+	ft_putenv(ft_strjoin("?=", str_num));
+	free(str_num);
+}
+
 int	ft_cmd(char *str)
 {
 	t_cmd	cmd;
@@ -137,12 +156,6 @@ int	ft_cmd(char *str)
 	int		index;
 
 	temp = str;
-	int fd_ori[2];
-	
-	fd_ori[0] = dup(STDIN_FILENO);
-	fd_ori[1] = dup(STDOUT_FILENO);
-	close(fd_ori[0]);
-	close(fd_ori[1]);
 	cmd = ft_cmd_init();
 	std = 1;
 	index = 0;
@@ -167,18 +180,8 @@ int	ft_cmd(char *str)
 			temp = ft_cmd_word(&cmd, temp);
 	}
 	ft_cmd_envset(&cmd, std);
-	pid[index++] = ft_cmd_std(&cmd);
-	int i;
-	i = 0;
-	while (i < index)
-	{
-		waitpid(pid[i], &std, 0);
-		i++;
-	}
-	char *str_num;
-	str_num = ft_itoa(std);
-	ft_putenv(ft_strjoin("?=", str_num));
-	free(str_num);
+	ft_cmd_std(&cmd);
+	ft_cmd_wait(pid, index);
 	ft_argv_free(&cmd);
 	free(str);
 	return (1);

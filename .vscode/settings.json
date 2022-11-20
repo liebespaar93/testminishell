@@ -25,6 +25,11 @@
 		"cdefs.h": "c",
 		"wait.h": "c",
 		"_pid_t.h": "c",
-		"_size_t.h": "c"
+		"_size_t.h": "c",
+		"stdio.h": "c",
+		"ttydefaults.h": "c",
+		"ioctl.h": "c",
+		"ft_error.h": "c",
+		"ft_readline.h": "c"
 	}
 }

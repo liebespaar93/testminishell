@@ -6,7 +6,7 @@
 /*   By: kyoulee <kyoulee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 22:58:44 by kyoulee           #+#    #+#             */
-/*   Updated: 2022/11/15 13:24:14 by kyoulee          ###   ########.fr       */
+/*   Updated: 2022/11/20 13:10:22 by kyoulee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ typedef struct s_global
 	const char	**export_ptr;
 	const char	**origin_envp_ptr;
 	const char	**origin_envp;
+	void		*old_ft;
 }	t_global;
 
 t_global	g_global;

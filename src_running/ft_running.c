@@ -6,11 +6,13 @@
 /*   By: kyoulee <kyoulee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 07:22:07 by kyoulee           #+#    #+#             */
-/*   Updated: 2022/11/19 10:29:28 by kyoulee          ###   ########.fr       */
+/*   Updated: 2022/11/20 13:27:28 by kyoulee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <string.h>
+#include <errno.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <sys/syslimits.h>
@@ -19,6 +21,7 @@
 #include <ft_terminal.h>
 #include <ft_cmd.h>
 #include <ft_error.h>
+#include <ft_readline.h>
 
 char	*ft_while_eof(char *history_str, char *str, int *flag)
 {
@@ -28,14 +31,11 @@ char	*ft_while_eof(char *history_str, char *str, int *flag)
 		ft_strcat(history_str, "\n");
 	while (!ft_strchr(str + 1, *str))
 	{
-		temp = readline("> ");
-		if (!temp)
-		{
-			free(temp);
-			return (str + ft_strlen(str));
-		}
+		temp = ft_readline_fork_ori("> ");
+		if (!temp && printf("\b\bERROR :unexpected EOF while looking for matching `%c'", *str))
+			exit(258);
+		ft_strcat(history_str, temp);
 		free(temp);
-		ft_strcat(history_str, rl_line_buffer);
 	}
 	*flag = 0;
 	return (ft_strchr(str + 1, *str));
@@ -50,12 +50,9 @@ char	*ft_pipe_eof(char *history_str, char *str)
 	{
 		if (!*str)
 		{
-			temp = readline("> ");
-			if (!temp)
-			{
-				free(temp);
-				return (str + ft_strlen(str));
-			}
+			temp = ft_readline_fork("> ");
+			if (!temp && printf("\b\bERROR : syntax error: unexpected end of file"))
+				exit(258);
 			ft_strcat(history_str, temp);
 			free(temp);
 		}

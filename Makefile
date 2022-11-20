@@ -6,7 +6,7 @@
 #    By: kyoulee <kyoulee@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 10:50:03 by kyoulee           #+#    #+#              #
-#    Updated: 2022/11/15 14:13:16 by kyoulee          ###   ########.fr        #
+#    Updated: 2022/11/20 13:59:07 by kyoulee          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,6 +80,7 @@ SRC_EXE_DIR = $(ROOTDIR)/src_exe
 SRC_EXPORT_TOOL_DIR = $(ROOTDIR)/src_export_tool
 SRC_FILE_DIR = $(ROOTDIR)/src_file
 SRC_GLOBAL_DIR = $(ROOTDIR)/src_global
+SRC_READLINE_DIR = $(ROOTDIR)/src_readline
 SRC_RUNNING_DIR = $(ROOTDIR)/src_running
 SRC_TERMINAL_DIR = $(ROOTDIR)/src_terminal
 SRC_TOOL_DIR = $(ROOTDIR)/src_tool
@@ -146,6 +147,11 @@ SRC_GLOBAL_FILE =	ft_global.c
 
 SRC_GLOBAL_C = $(addprefix $(SRC_GLOBAL_DIR)/, $(SRC_GLOBAL_FILE))
 
+SRC_READLINE_FILE =	ft_readline_fork.c	\
+					ft_signal_set.c
+
+SRC_READLINE_C = $(addprefix $(SRC_READLINE_DIR)/, $(SRC_READLINE_FILE))
+
 SRC_RUNNING_FILE =	ft_running.c
 
 SRC_RUNNING_C = $(addprefix $(SRC_RUNNING_DIR)/, $(SRC_RUNNING_FILE))
@@ -193,6 +199,7 @@ OBJS =	$(SRC_C:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)				\
 		$(SRC_EXPORT_TOOL_C:$(SRC_EXPORT_TOOL_DIR)/%.c=$(OBJ_DIR)/%.o)	\
 		$(SRC_FILE_C:$(SRC_FILE_DIR)/%.c=$(OBJ_DIR)/%.o)			\
 		$(SRC_GLOBAL_C:$(SRC_GLOBAL_DIR)/%.c=$(OBJ_DIR)/%.o)		\
+		$(SRC_READLINE_C:$(SRC_READLINE_DIR)/%.c=$(OBJ_DIR)/%.o)		\
 		$(SRC_RUNNING_C:$(SRC_RUNNING_DIR)/%.c=$(OBJ_DIR)/%.o)		\
 		$(SRC_TERMINAL_C:$(SRC_TERMINAL_DIR)/%.c=$(OBJ_DIR)/%.o)		\
 		$(SRC_TOOL_C:$(SRC_TOOL_DIR)/%.c=$(OBJ_DIR)/%.o)			\
@@ -249,6 +256,9 @@ $(OBJ_DIR)/%.o : $(SRC_FILE_DIR)/%.c
 	$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
 
 $(OBJ_DIR)/%.o : $(SRC_GLOBAL_DIR)/%.c
+	$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
+
+$(OBJ_DIR)/%.o : $(SRC_READLINE_DIR)/%.c
 	$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
 
 $(OBJ_DIR)/%.o : $(SRC_RUNNING_DIR)/%.c
